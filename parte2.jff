@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<structure>
+<type>turing</type>
+<automaton>
+<state id="0" name="q_len">
+<x>100.0</x>
+<y>200.0</y>
+</state>
+<state id="1" name="q_upper">
+<x>250.0</x>
+<y>200.0</y>
+</state>
+<state id="2" name="q_lower">
+<x>400.0</x>
+<y>200.0</y>
+</state>
+<state id="3" name="q_digit1">
+<x>550.0</x>
+<y>200.0</y>
+</state>
+<state id="4" name="q_digit2">
+<x>700.0</x>
+<y>200.0</y>
+</state>
+<state id="5" name="q_special">
+<x>850.0</x>
+<y>200.0</y>
+<final/>
+</state>
+
+<!-- Entrada desde Persona 1 -->
+<transition>
+<from>0</from>
+<to>1</to>
+<read>L</read>
+<write>L</write>
+<move>R</move>
+</transition>
+
+<!-- ========================================= -->
+<!-- FASE 1: BUSCAR MAYÚSCULA (q_upper) -->
+<!-- ========================================= -->
+
+<!-- Encontrar y marcar CUALQUIER mayúscula A-Z -->
+<transition><from>1</from><to>2</to><read>A</read><write>M</write><move>R</move></transition>
+<transition><from>1</from><to>2</to><read>B</read><write>M</write><move>R</move></transition>
+<transition><from>1</from><to>2</to><read>C</read><write>M</write><move>R</move></transition>
+<transition><from>1</from><to>2</to><read>D</read><write>M</write><move>R</move></transition>
+<transition><from>1</from><to>2</to><read>E</read><write>M</write><move>R</move></transition>
+<transition><from>1</from><to>2</to><read>F</read><write>M</write><move>R</move></transition>
+<transition><from>1</from><to>2</to><read>G</read><write>M</write><move>R</move></transition>
+<transition><from>1</from><to>2</to><read>H</read><write>M</write><move>R</move></transition>
+<transition><from>1</from><to>2</to><read>I</read><write>M</write><move>R</move></transition>
+<transition><from>1</from><to>2</to><read>J</read><write>M</write><move>R</move></transition>
+<transition><from>1</from><to>2</to><read>K</read><write>M</write><move>R</move></transition>
+<transition><from>1</from><to>2</to><read>L</read><write>M</write><move>R</move></transition>
+<transition><from>1</from><to>2</to><read>M</read><write>M</write><move>R</move></transition>
+<transition><from>1</from><to>2</to><read>N</read><write>M</write><move>R</move></transition>
+<transition><from>1</from><to>2</to><read>O</read><write>M</write><move>R</move></transition>
+<transition><from>1</from><to>2</to><read>P</read><write>M</write><move>R</move></transition>
+<transition><from>1</from><to>2</to><read>Q</read><write>M</write><move>R</move></transition>
+<transition><from>1</from><to>2</to><read>R</read><write>M</write><move>R</move></transition>
+<transition><from>1</from><to>2</to><read>S</read><write>M</write><move>R</move></transition>
+<transition><from>1</from><to>2</to><read>T</read><write>M</write><move>R</move></transition>
+<transition><from>1</from><to>2</to><read>U</read><write>M</write><move>R</move></transition>
+<transition><from>1</from><to>2</to><read>V</read><write>M</write><move>R</move></transition>
+<transition><from>1</from><to>2</to><read>W</read><write>M</write><move>R</move></transition>
+<transition><from>1</from><to>2</to><read>X</read><write>M</write><move>R</move></transition>
+<transition><from>1</from><to>2</to><read>Y</read><write>M</write><move>R</move></transition>
+<transition><from>1</from><to>2</to><read>Z</read><write>M</write><move>R</move></transition>
+
+<!-- Saltar minúsculas mientras busca mayúscula -->
+<transition><from>1</from><to>1</to><read>a</read><write>a</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>b</read><write>b</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>c</read><write>c</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>d</read><write>d</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>e</read><write>e</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>f</read><write>f</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>g</read><write>g</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>h</read><write>h</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>i</read><write>i</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>j</read><write>j</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>k</read><write>k</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>l</read><write>l</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>m</read><write>m</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>n</read><write>n</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>o</read><write>o</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>p</read><write>p</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>q</read><write>q</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>r</read><write>r</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>s</read><write>s</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>t</read><write>t</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>u</read><write>u</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>v</read><write>v</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>w</read><write>w</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>x</read><write>x</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>y</read><write>y</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>z</read><write>z</write><move>R</move></transition>
+
+<!-- Saltar dígitos mientras busca mayúscula -->
+<transition><from>1</from><to>1</to><read>0</read><write>0</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>1</read><write>1</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>2</read><write>2</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>3</read><write>3</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>4</read><write>4</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>5</read><write>5</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>6</read><write>6</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>7</read><write>7</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>8</read><write>8</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>9</read><write>9</write><move>R</move></transition>
+
+<!-- Saltar caracteres especiales -->
+<transition><from>1</from><to>1</to><read>!</read><write>!</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>@</read><write>@</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>#</read><write>#</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>$</read><write>$</write><move>R</move></transition>
+<transition><from>1</from><to>1</to><read>%</read><write>%</write><move>R</move></transition>
+
+<!-- ========================================= -->
+<!-- FASE 2: BUSCAR MINÚSCULA (q_lower) -->
+<!-- ========================================= -->
+
+<!-- Encontrar y marcar CUALQUIER minúscula a-z -->
+<transition><from>2</from><to>3</to><read>a</read><write>m</write><move>R</move></transition>
+<transition><from>2</from><to>3</to><read>b</read><write>m</write><move>R</move></transition>
+<transition><from>2</from><to>3</to><read>c</read><write>m</write><move>R</move></transition>
+<transition><from>2</from><to>3</to><read>d</read><write>m</write><move>R</move></transition>
+<transition><from>2</from><to>3</to><read>e</read><write>m</write><move>R</move></transition>
+<transition><from>2</from><to>3</to><read>f</read><write>m</write><move>R</move></transition>
+<transition><from>2</from><to>3</to><read>g</read><write>m</write><move>R</move></transition>
+<transition><from>2</from><to>3</to><read>h</read><write>m</write><move>R</move></transition>
+<transition><from>2</from><to>3</to><read>i</read><write>m</write><move>R</move></transition>
+<transition><from>2</from><to>3</to><read>j</read><write>m</write><move>R</move></transition>
+<transition><from>2</from><to>3</to><read>k</read><write>m</write><move>R</move></transition>
+<transition><from>2</from><to>3</to><read>l</read><write>m</write><move>R</move></transition>
+<transition><from>2</from><to>3</to><read>m</read><write>m</write><move>R</move></transition>
+<transition><from>2</from><to>3</to><read>n</read><write>m</write><move>R</move></transition>
+<transition><from>2</from><to>3</to><read>o</read><write>m</write><move>R</move></transition>
+<transition><from>2</from><to>3</to><read>p</read><write>m</write><move>R</move></transition>
+<transition><from>2</from><to>3</to><read>q</read><write>m</write><move>R</move></transition>
+<transition><from>2</from><to>3</to><read>r</read><write>m</write><move>R</move></transition>
+<transition><from>2</from><to>3</to><read>s</read><write>m</write><move>R</move></transition>
+<transition><from>2</from><to>3</to><read>t</read><write>m</write><move>R</move></transition>
+<transition><from>2</from><to>3</to><read>u</read><write>m</write><move>R</move></transition>
+<transition><from>2</from><to>3</to><read>v</read><write>m</write><move>R</move></transition>
+<transition><from>2</from><to>3</to><read>w</read><write>m</write><move>R</move></transition>
+<transition><from>2</from><to>3</to><read>x</read><write>m</write><move>R</move></transition>
+<transition><from>2</from><to>3</to><read>y</read><write>m</write><move>R</move></transition>
+<transition><from>2</from><to>3</to><read>z</read><write>m</write><move>R</move></transition>
+
+<!-- Saltar mayúsculas marcadas -->
+<transition><from>2</from><to>2</to><read>M</read><write>M</write><move>R</move></transition>
+
+<!-- Saltar dígitos -->
+<transition><from>2</from><to>2</to><read>0</read><write>0</write><move>R</move></transition>
+<transition><from>2</from><to>2</to><read>1</read><write>1</write><move>R</move></transition>
+<transition><from>2</from><to>2</to><read>2</read><write>2</write><move>R</move></transition>
+<transition><from>2</from><to>2</to><read>3</read><write>3</write><move>R</move></transition>
+<transition><from>2</from><to>2</to><read>4</read><write>4</write><move>R</move></transition>
+<transition><from>2</from><to>2</to><read>5</read><write>5</write><move>R</move></transition>
+<transition><from>2</from><to>2</to><read>6</read><write>6</write><move>R</move></transition>
+<transition><from>2</from><to>2</to><read>7</read><write>7</write><move>R</move></transition>
+<transition><from>2</from><to>2</to><read>8</read><write>8</write><move>R</move></transition>
+<transition><from>2</from><to>2</to><read>9</read><write>9</write><move>R</move></transition>
+
+<!-- Saltar caracteres especiales -->
+<transition><from>2</from><to>2</to><read>!</read><write>!</write><move>R</move></transition>
+<transition><from>2</from><to>2</to><read>@</read><write>@</write><move>R</move></transition>
+<transition><from>2</from><to>2</to><read>#</read><write>#</write><move>R</move></transition>
+<transition><from>2</from><to>2</to><read>$</read><write>$</write><move>R</move></transition>
+<transition><from>2</from><to>2</to><read>%</read><write>%</write><move>R</move></transition>
+
+<!-- ========================================= -->
+<!-- FASE 3: BUSCAR PRIMER DÍGITO (q_digit1) -->
+<!-- ========================================= -->
+
+<!-- Encontrar y marcar primer dígito 0-9 -->
+<transition><from>3</from><to>4</to><read>0</read><write>D</write><move>R</move></transition>
+<transition><from>3</from><to>4</to><read>1</read><write>D</write><move>R</move></transition>
+<transition><from>3</from><to>4</to><read>2</read><write>D</write><move>R</move></transition>
+<transition><from>3</from><to>4</to><read>3</read><write>D</write><move>R</move></transition>
+<transition><from>3</from><to>4</to><read>4</read><write>D</write><move>R</move></transition>
+<transition><from>3</from><to>4</to><read>5</read><write>D</write><move>R</move></transition>
+<transition><from>3</from><to>4</to><read>6</read><write>D</write><move>R</move></transition>
+<transition><from>3</from><to>4</to><read>7</read><write>D</write><move>R</move></transition>
+<transition><from>3</from><to>4</to><read>8</read><write>D</write><move>R</move></transition>
+<transition><from>3</from><to>4</to><read>9</read><write>D</write><move>R</move></transition>
+
+<!-- Saltar caracteres marcados -->
+<transition><from>3</from><to>3</to><read>M</read><write>M</write><move>R</move></transition>
+<transition><from>3</from><to>3</to><read>m</read><write>m</write><move>R</move></transition>
+
+<!-- Saltar caracteres especiales -->
+<transition><from>3</from><to>3</to><read>!</read><write>!</write><move>R</move></transition>
+<transition><from>3</from><to>3</to><read>@</read><write>@</write><move>R</move></transition>
+<transition><from>3</from><to>3</to><read>#</read><write>#</write><move>R</move></transition>
+<transition><from>3</from><to>3</to><read>$</read><write>$</write><move>R</move></transition>
+<transition><from>3</from><to>3</to><read>%</read><write>%</write><move>R</move></transition>
+
+<!-- ========================================= -->
+<!-- FASE 4: BUSCAR SEGUNDO DÍGITO (q_digit2) -->
+<!-- ========================================= -->
+
+<!-- Encontrar y marcar segundo dígito 0-9 -->
+<transition><from>4</from><to>5</to><read>0</read><write>E</write><move>R</move></transition>
+<transition><from>4</from><to>5</to><read>1</read><write>E</write><move>R</move></transition>
+<transition><from>4</from><to>5</to><read>2</read><write>E</write><move>R</move></transition>
+<transition><from>4</from><to>5</to><read>3</read><write>E</write><move>R</move></transition>
+<transition><from>4</from><to>5</to><read>4</read><write>E</write><move>R</move></transition>
+<transition><from>4</from><to>5</to><read>5</read><write>E</write><move>R</move></transition>
+<transition><from>4</from><to>5</to><read>6</read><write>E</write><move>R</move></transition>
+<transition><from>4</from><to>5</to><read>7</read><write>E</write><move>R</move></transition>
+<transition><from>4</from><to>5</to><read>8</read><write>E</write><move>R</move></transition>
+<transition><from>4</from><to>5</to><read>9</read><write>E</write><move>R</move></transition>
+
+<!-- Saltar caracteres marcados -->
+<transition><from>4</from><to>4</to><read>M</read><write>M</write><move>R</move></transition>
+<transition><from>4</from><to>4</to><read>m</read><write>m</write><move>R</move></transition>
+<transition><from>4</from><to>4</to><read>D</read><write>D</write><move>R</move></transition>
+
+<!-- Saltar caracteres especiales -->
+<transition><from>4</from><to>4</to><read>!</read><write>!</write><move>R</move></transition>
+<transition><from>4</from><to>4</to><read>@</read><write>@</write><move>R</move></transition>
+<transition><from>4</from><to>4</to><read>#</read><write>#</write><move>R</move></transition>
+<transition><from>4</from><to>4</to><read>$</read><write>$</write><move>R</move></transition>
+<transition><from>4</from><to>4</to><read>%</read><write>%</write><move>R</move></transition>
+
+</automaton>
+</structure>
