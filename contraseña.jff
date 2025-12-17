@@ -112,11 +112,85 @@
 <y>200.0</y>
 </state>
 
-<state id="20" name="q_final">
+<!-- Estados para verificación de suma mod 9 -->
+<state id="25" name="q_prepare_sum">
 <x>2800.0</x>
+<y>200.0</y>
+</state>
+
+<state id="26" name="q_clean_for_sum">
+<x>3000.0</x>
+<y>200.0</y>
+</state>
+
+<state id="27" name="q_back_to_sum">
+<x>3200.0</x>
+<y>200.0</y>
+</state>
+
+<state id="28" name="q_advance_after_digit2">
+<x>2100.0</x>
+<y>200.0</y>
+</state>
+
+<state id="29" name="q_back_after_digit2">
+<x>2300.0</x>
+<y>200.0</y>
+</state>
+
+<!-- Estados mod 0-8 para calcular suma (PATRÓN CIRCULAR) -->
+<state id="30" name="q_sum_mod0">
+<x>3800.0</x>
+<y>200.0</y>
+</state>
+
+<state id="31" name="q_sum_mod1">
+<x>4100.0</x>
+<y>350.0</y>
+</state>
+
+<state id="32" name="q_sum_mod2">
+<x>4300.0</x>
+<y>600.0</y>
+</state>
+
+<state id="33" name="q_sum_mod3">
+<x>4100.0</x>
+<y>850.0</y>
+</state>
+
+<state id="34" name="q_sum_mod4">
+<x>3800.0</x>
+<y>1000.0</y>
+</state>
+
+<state id="35" name="q_sum_mod5">
+<x>3500.0</x>
+<y>850.0</y>
+</state>
+
+<state id="36" name="q_sum_mod6">
+<x>3300.0</x>
+<y>600.0</y>
+</state>
+
+<state id="37" name="q_sum_mod7">
+<x>3500.0</x>
+<y>350.0</y>
+</state>
+
+<state id="38" name="q_sum_mod8">
+<x>3800.0</x>
+<y>50.0</y>
+</state>
+
+<!-- Estado final -->
+<state id="20" name="q_final">
+<x>4500.0</x>
 <y>200.0</y>
 <final/>
 </state>
+
 
 <transition>
 <from>0</from>
@@ -1674,14 +1748,14 @@
 </transition>
 <transition>
 <from>2</from>
-<to>10</to>
+<to>11</to>
 <read> </read>
 <write> </write>
 <move>R</move>
 </transition>
 <transition>
 <from>2</from>
-<to>10</to>
+<to>11</to>
 <read/>
 <write/>
 <move>R</move>
@@ -5401,15 +5475,36 @@
 <move>S</move>
 </transition>
 
+<!-- ============================================ -->
+<!-- FASE 1: VERIFICAR LONGITUD MÍNIMA (8 CHARS) -->
+<!-- ============================================ -->
+
+<!-- Estados q0 a q8: Contar 8 caracteres (ya los tienes del autómata 2) -->
+<!-- Mantén todas esas transiciones como están -->
+
+<!-- Al llegar al estado 8, continuar o ir a q_back -->
+<!-- (Mantén las transiciones que ya tienes para q8 → q9) -->
+
+<!-- Estado q9 retrocede al inicio (ya lo tienes) -->
+<!-- Estado q10 es el punto de verificación exitosa de longitud -->
+
+<!-- ============================================ -->
+<!-- CONEXIÓN: De q10 a Marcar Todo -->
+<!-- ============================================ -->
 
 <transition>
-<from>10</from>
-<to>12</to>
-<read/>
-<write/>
-<move>R</move>
+  <from>10</from>
+  <to>12</to>
+  <read></read>
+  <write></write>
+  <move>R</move>
 </transition>
 
+<!-- ============================================ -->
+<!-- ESTADO 12: MARCAR TODO EN UNA PASADA -->
+<!-- ============================================ -->
+
+<!-- MARCAR MAYÚSCULAS como 'M' -->
 <transition><from>12</from><to>12</to><read>A</read><write>M</write><move>R</move></transition>
 <transition><from>12</from><to>12</to><read>B</read><write>M</write><move>R</move></transition>
 <transition><from>12</from><to>12</to><read>C</read><write>M</write><move>R</move></transition>
@@ -5437,7 +5532,7 @@
 <transition><from>12</from><to>12</to><read>Y</read><write>M</write><move>R</move></transition>
 <transition><from>12</from><to>12</to><read>Z</read><write>M</write><move>R</move></transition>
 
-
+<!-- MARCAR MINÚSCULAS como 'm' -->
 <transition><from>12</from><to>12</to><read>a</read><write>m</write><move>R</move></transition>
 <transition><from>12</from><to>12</to><read>b</read><write>m</write><move>R</move></transition>
 <transition><from>12</from><to>12</to><read>c</read><write>m</write><move>R</move></transition>
@@ -5465,19 +5560,20 @@
 <transition><from>12</from><to>12</to><read>y</read><write>m</write><move>R</move></transition>
 <transition><from>12</from><to>12</to><read>z</read><write>m</write><move>R</move></transition>
 
+<!-- MANTENER DÍGITOS sin cambiar -->
+<transition><from>12</from><to>12</to><read>0</read><write>0</write><move>R</move></transition>
+<transition><from>12</from><to>12</to><read>1</read><write>1</write><move>R</move></transition>
+<transition><from>12</from><to>12</to><read>2</read><write>2</write><move>R</move></transition>
+<transition><from>12</from><to>12</to><read>3</read><write>3</write><move>R</move></transition>
+<transition><from>12</from><to>12</to><read>4</read><write>4</write><move>R</move></transition>
+<transition><from>12</from><to>12</to><read>5</read><write>5</write><move>R</move></transition>
+<transition><from>12</from><to>12</to><read>6</read><write>6</write><move>R</move></transition>
+<transition><from>12</from><to>12</to><read>7</read><write>7</write><move>R</move></transition>
+<transition><from>12</from><to>12</to><read>8</read><write>8</write><move>R</move></transition>
+<transition><from>12</from><to>12</to><read>9</read><write>9</write><move>R</move></transition>
 
-<transition><from>12</from><to>12</to><read>0</read><write>D</write><move>R</move></transition>
-<transition><from>12</from><to>12</to><read>1</read><write>D</write><move>R</move></transition>
-<transition><from>12</from><to>12</to><read>2</read><write>D</write><move>R</move></transition>
-<transition><from>12</from><to>12</to><read>3</read><write>D</write><move>R</move></transition>
-<transition><from>12</from><to>12</to><read>4</read><write>D</write><move>R</move></transition>
-<transition><from>12</from><to>12</to><read>5</read><write>D</write><move>R</move></transition>
-<transition><from>12</from><to>12</to><read>6</read><write>D</write><move>R</move></transition>
-<transition><from>12</from><to>12</to><read>7</read><write>D</write><move>R</move></transition>
-<transition><from>12</from><to>12</to><read>8</read><write>D</write><move>R</move></transition>
-<transition><from>12</from><to>12</to><read>9</read><write>D</write><move>R</move></transition>
-
-
+<!-- MARCAR SÍMBOLOS como 'S' -->
+<!-- ⭐ AGREGADO: Símbolo de exclamación -->
 <transition><from>12</from><to>12</to><read>?</read><write>S</write><move>R</move></transition>
 <transition><from>12</from><to>12</to><read>@</read><write>S</write><move>R</move></transition>
 <transition><from>12</from><to>12</to><read>#</read><write>S</write><move>R</move></transition>
@@ -5488,83 +5584,383 @@
 <transition><from>12</from><to>12</to><read>_</read><write>S</write><move>R</move></transition>
 <transition><from>12</from><to>12</to><read>-</read><write>S</write><move>R</move></transition>
 
+<!-- Al llegar al final → retroceder -->
+<transition><from>12</from><to>13</to><read></read><write></write><move>L</move></transition>
 
-<transition><from>12</from><to>13</to><read/><write/><move>L</move></transition>
+<!-- ============================================ -->
+<!-- RESTO DEL CÓDIGO SIN CAMBIOS -->
+<!-- ============================================ -->
 
+<!-- ESTADO 13: RETROCEDER AL INICIO -->
 <transition><from>13</from><to>13</to><read>M</read><write>M</write><move>L</move></transition>
 <transition><from>13</from><to>13</to><read>m</read><write>m</write><move>L</move></transition>
-<transition><from>13</from><to>13</to><read>D</read><write>D</write><move>L</move></transition>
 <transition><from>13</from><to>13</to><read>S</read><write>S</write><move>L</move></transition>
+<transition><from>13</from><to>13</to><read>0</read><write>0</write><move>L</move></transition>
+<transition><from>13</from><to>13</to><read>1</read><write>1</write><move>L</move></transition>
+<transition><from>13</from><to>13</to><read>2</read><write>2</write><move>L</move></transition>
+<transition><from>13</from><to>13</to><read>3</read><write>3</write><move>L</move></transition>
+<transition><from>13</from><to>13</to><read>4</read><write>4</write><move>L</move></transition>
+<transition><from>13</from><to>13</to><read>5</read><write>5</write><move>L</move></transition>
+<transition><from>13</from><to>13</to><read>6</read><write>6</write><move>L</move></transition>
+<transition><from>13</from><to>13</to><read>7</read><write>7</write><move>L</move></transition>
+<transition><from>13</from><to>13</to><read>8</read><write>8</write><move>L</move></transition>
+<transition><from>13</from><to>13</to><read>9</read><write>9</write><move>L</move></transition>
+<transition><from>13</from><to>14</to><read></read><write></write><move>R</move></transition>
 
-
-<transition><from>13</from><to>14</to><read/><write/><move>R</move></transition>
-
-<transition><from>14</from><to>15</to><read>M</read><write>M</write><move>L</move></transition>
-
-
+<!-- ESTADO 14: VERIFICAR MAYÚSCULA -->
+<transition><from>14</from><to>15</to><read>M</read><write>M</write><move>R</move></transition>
 <transition><from>14</from><to>14</to><read>m</read><write>m</write><move>R</move></transition>
-<transition><from>14</from><to>14</to><read>D</read><write>D</write><move>R</move></transition>
 <transition><from>14</from><to>14</to><read>S</read><write>S</write><move>R</move></transition>
+<transition><from>14</from><to>14</to><read>0</read><write>0</write><move>R</move></transition>
+<transition><from>14</from><to>14</to><read>1</read><write>1</write><move>R</move></transition>
+<transition><from>14</from><to>14</to><read>2</read><write>2</write><move>R</move></transition>
+<transition><from>14</from><to>14</to><read>3</read><write>3</write><move>R</move></transition>
+<transition><from>14</from><to>14</to><read>4</read><write>4</write><move>R</move></transition>
+<transition><from>14</from><to>14</to><read>5</read><write>5</write><move>R</move></transition>
+<transition><from>14</from><to>14</to><read>6</read><write>6</write><move>R</move></transition>
+<transition><from>14</from><to>14</to><read>7</read><write>7</write><move>R</move></transition>
+<transition><from>14</from><to>14</to><read>8</read><write>8</write><move>R</move></transition>
+<transition><from>14</from><to>14</to><read>9</read><write>9</write><move>R</move></transition>
 
+<!-- ESTADO 15: AVANZAR Y REGRESAR -->
+<transition><from>15</from><to>15</to><read>M</read><write>M</write><move>R</move></transition>
+<transition><from>15</from><to>15</to><read>m</read><write>m</write><move>R</move></transition>
+<transition><from>15</from><to>15</to><read>S</read><write>S</write><move>R</move></transition>
+<transition><from>15</from><to>15</to><read>0</read><write>0</write><move>R</move></transition>
+<transition><from>15</from><to>15</to><read>1</read><write>1</write><move>R</move></transition>
+<transition><from>15</from><to>15</to><read>2</read><write>2</write><move>R</move></transition>
+<transition><from>15</from><to>15</to><read>3</read><write>3</write><move>R</move></transition>
+<transition><from>15</from><to>15</to><read>4</read><write>4</write><move>R</move></transition>
+<transition><from>15</from><to>15</to><read>5</read><write>5</write><move>R</move></transition>
+<transition><from>15</from><to>15</to><read>6</read><write>6</write><move>R</move></transition>
+<transition><from>15</from><to>15</to><read>7</read><write>7</write><move>R</move></transition>
+<transition><from>15</from><to>15</to><read>8</read><write>8</write><move>R</move></transition>
+<transition><from>15</from><to>15</to><read>9</read><write>9</write><move>R</move></transition>
+<transition><from>15</from><to>22</to><read></read><write></write><move>L</move></transition>
 
-<transition><from>15</from><to>15</to><read>M</read><write>M</write><move>L</move></transition>
-<transition><from>15</from><to>15</to><read>m</read><write>m</write><move>L</move></transition>
-<transition><from>15</from><to>15</to><read>D</read><write>D</write><move>L</move></transition>
-<transition><from>15</from><to>15</to><read>S</read><write>S</write><move>L</move></transition>
-
-
-<transition><from>15</from><to>21</to><read></read><write></write><move>R</move></transition>
-
-
-
-<transition><from>21</from><to>22</to><read>m</read><write>m</write><move>L</move></transition>
-
-<transition><from>21</from><to>21</to><read>M</read><write>M</write><move>R</move></transition>
-<transition><from>21</from><to>21</to><read>D</read><write>D</write><move>R</move></transition>
-<transition><from>21</from><to>21</to><read>S</read><write>S</write><move>R</move></transition>
-
+<!-- ESTADO 22: RETROCEDER AL INICIO -->
 <transition><from>22</from><to>22</to><read>M</read><write>M</write><move>L</move></transition>
 <transition><from>22</from><to>22</to><read>m</read><write>m</write><move>L</move></transition>
-<transition><from>22</from><to>22</to><read>D</read><write>D</write><move>L</move></transition>
 <transition><from>22</from><to>22</to><read>S</read><write>S</write><move>L</move></transition>
+<transition><from>22</from><to>22</to><read>0</read><write>0</write><move>L</move></transition>
+<transition><from>22</from><to>22</to><read>1</read><write>1</write><move>L</move></transition>
+<transition><from>22</from><to>22</to><read>2</read><write>2</write><move>L</move></transition>
+<transition><from>22</from><to>22</to><read>3</read><write>3</write><move>L</move></transition>
+<transition><from>22</from><to>22</to><read>4</read><write>4</write><move>L</move></transition>
+<transition><from>22</from><to>22</to><read>5</read><write>5</write><move>L</move></transition>
+<transition><from>22</from><to>22</to><read>6</read><write>6</write><move>L</move></transition>
+<transition><from>22</from><to>22</to><read>7</read><write>7</write><move>L</move></transition>
+<transition><from>22</from><to>22</to><read>8</read><write>8</write><move>L</move></transition>
+<transition><from>22</from><to>22</to><read>9</read><write>9</write><move>L</move></transition>
+<transition><from>22</from><to>21</to><read></read><write></write><move>R</move></transition>
 
-<transition><from>22</from><to>16</to><read></read><write></write><move>R</move></transition>
+<!-- ESTADO 21: VERIFICAR MINÚSCULA -->
+<transition><from>21</from><to>23</to><read>m</read><write>m</write><move>R</move></transition>
+<transition><from>21</from><to>21</to><read>M</read><write>M</write><move>R</move></transition>
+<transition><from>21</from><to>21</to><read>S</read><write>S</write><move>R</move></transition>
+<transition><from>21</from><to>21</to><read>0</read><write>0</write><move>R</move></transition>
+<transition><from>21</from><to>21</to><read>1</read><write>1</write><move>R</move></transition>
+<transition><from>21</from><to>21</to><read>2</read><write>2</write><move>R</move></transition>
+<transition><from>21</from><to>21</to><read>3</read><write>3</write><move>R</move></transition>
+<transition><from>21</from><to>21</to><read>4</read><write>4</write><move>R</move></transition>
+<transition><from>21</from><to>21</to><read>5</read><write>5</write><move>R</move></transition>
+<transition><from>21</from><to>21</to><read>6</read><write>6</write><move>R</move></transition>
+<transition><from>21</from><to>21</to><read>7</read><write>7</write><move>R</move></transition>
+<transition><from>21</from><to>21</to><read>8</read><write>8</write><move>R</move></transition>
+<transition><from>21</from><to>21</to><read>9</read><write>9</write><move>R</move></transition>
 
-<transition><from>16</from><to>23</to><read>D</read><write>X</write><move>L</move></transition>
+<!-- ESTADO 16: VERIFICAR PRIMER DÍGITO -->
+<transition><from>16</from><to>17</to><read>0</read><write>0</write><move>R</move></transition>
+<transition><from>16</from><to>17</to><read>1</read><write>1</write><move>R</move></transition>
+<transition><from>16</from><to>17</to><read>2</read><write>2</write><move>R</move></transition>
+<transition><from>16</from><to>17</to><read>3</read><write>3</write><move>R</move></transition>
+<transition><from>16</from><to>17</to><read>4</read><write>4</write><move>R</move></transition>
+<transition><from>16</from><to>17</to><read>5</read><write>5</write><move>R</move></transition>
+<transition><from>16</from><to>17</to><read>6</read><write>6</write><move>R</move></transition>
+<transition><from>16</from><to>17</to><read>7</read><write>7</write><move>R</move></transition>
+<transition><from>16</from><to>17</to><read>8</read><write>8</write><move>R</move></transition>
+<transition><from>16</from><to>17</to><read>9</read><write>9</write><move>R</move></transition>
 <transition><from>16</from><to>16</to><read>M</read><write>M</write><move>R</move></transition>
 <transition><from>16</from><to>16</to><read>m</read><write>m</write><move>R</move></transition>
 <transition><from>16</from><to>16</to><read>S</read><write>S</write><move>R</move></transition>
 
-<transition><from>23</from><to>23</to><read>M</read><write>M</write><move>L</move></transition>
-<transition><from>23</from><to>23</to><read>m</read><write>m</write><move>L</move></transition>
-<transition><from>23</from><to>23</to><read>D</read><write>D</write><move>L</move></transition>
-<transition><from>23</from><to>23</to><read>S</read><write>S</write><move>L</move></transition>
-
-<transition><from>23</from><to>23</to><read>X</read><write>X</write><move>L</move></transition>
-<transition><from>23</from><to>17</to><read></read><write></write><move>R</move></transition>
-<transition><from>17</from><to>24</to><read>D</read><write>D</write><move>L</move></transition>
-
+<!-- ESTADO 17: VERIFICAR SEGUNDO DÍGITO -->
+<transition><from>17</from><to>28</to><read>0</read><write>0</write><move>R</move></transition>
+<transition><from>17</from><to>19</to><read>1</read><write>1</write><move>R</move></transition>
+<transition><from>17</from><to>19</to><read>2</read><write>2</write><move>R</move></transition>
+<transition><from>17</from><to>19</to><read>3</read><write>3</write><move>R</move></transition>
+<transition><from>17</from><to>19</to><read>4</read><write>4</write><move>R</move></transition>
+<transition><from>17</from><to>19</to><read>5</read><write>5</write><move>R</move></transition>
+<transition><from>17</from><to>19</to><read>6</read><write>6</write><move>R</move></transition>
+<transition><from>17</from><to>19</to><read>7</read><write>7</write><move>R</move></transition>
+<transition><from>17</from><to>19</to><read>8</read><write>8</write><move>R</move></transition>
+<transition><from>17</from><to>19</to><read>9</read><write>9</write><move>R</move></transition>
 <transition><from>17</from><to>17</to><read>M</read><write>M</write><move>R</move></transition>
 <transition><from>17</from><to>17</to><read>m</read><write>m</write><move>R</move></transition>
 <transition><from>17</from><to>17</to><read>S</read><write>S</write><move>R</move></transition>
-<transition><from>17</from><to>17</to><read>X</read><write>X</write><move>R</move></transition>
 
-<transition><from>24</from><to>24</to><read>M</read><write>M</write><move>L</move></transition>
-<transition><from>24</from><to>24</to><read>m</read><write>m</write><move>L</move></transition>
-<transition><from>24</from><to>24</to><read>D</read><write>D</write><move>L</move></transition>
-<transition><from>24</from><to>24</to><read>S</read><write>S</write><move>L</move></transition>
-<transition><from>24</from><to>24</to><read>X</read><write>X</write><move>L</move></transition>
-<transition><from>24</from><to>19</to><read></read><write></write><move>R</move></transition>
+<!-- ESTADO 19: VERIFICAR SÍMBOLO -->
 <transition><from>19</from><to>18</to><read>S</read><write>S</write><move>R</move></transition>
 <transition><from>19</from><to>19</to><read>M</read><write>M</write><move>R</move></transition>
 <transition><from>19</from><to>19</to><read>m</read><write>m</write><move>R</move></transition>
-<transition><from>19</from><to>19</to><read>D</read><write>D</write><move>R</move></transition>
-<transition><from>19</from><to>19</to><read>X</read><write>X</write><move>R</move></transition>
+<transition><from>19</from><to>19</to><read>0</read><write>0</write><move>R</move></transition>
+<transition><from>19</from><to>19</to><read>1</read><write>1</write><move>R</move></transition>
+<transition><from>19</from><to>19</to><read>2</read><write>2</write><move>R</move></transition>
+<transition><from>19</from><to>19</to><read>3</read><write>3</write><move>R</move></transition>
+<transition><from>19</from><to>19</to><read>4</read><write>4</write><move>R</move></transition>
+<transition><from>19</from><to>19</to><read>5</read><write>5</write><move>R</move></transition>
+<transition><from>19</from><to>19</to><read>6</read><write>6</write><move>R</move></transition>
+<transition><from>19</from><to>19</to><read>7</read><write>7</write><move>R</move></transition>
+<transition><from>19</from><to>19</to><read>8</read><write>8</write><move>R</move></transition>
+<transition><from>19</from><to>19</to><read>9</read><write>9</write><move>R</move></transition>
+
+<!-- ESTADO 18: AVANZAR AL FINAL -->
 <transition><from>18</from><to>18</to><read>M</read><write>M</write><move>R</move></transition>
 <transition><from>18</from><to>18</to><read>m</read><write>m</write><move>R</move></transition>
-<transition><from>18</from><to>18</to><read>D</read><write>D</write><move>R</move></transition>
 <transition><from>18</from><to>18</to><read>S</read><write>S</write><move>R</move></transition>
-<transition><from>18</from><to>18</to><read>X</read><write>X</write><move>R</move></transition>
-<transition><from>18</from><to>20</to><read></read><write></write><move>R</move></transition>
+<transition><from>18</from><to>18</to><read>0</read><write>0</write><move>R</move></transition>
+<transition><from>18</from><to>18</to><read>1</read><write>1</write><move>R</move></transition>
+<transition><from>18</from><to>18</to><read>2</read><write>2</write><move>R</move></transition>
+<transition><from>18</from><to>18</to><read>3</read><write>3</write><move>R</move></transition>
+<transition><from>18</from><to>18</to><read>4</read><write>4</write><move>R</move></transition>
+<transition><from>18</from><to>18</to><read>5</read><write>5</write><move>R</move></transition>
+<transition><from>18</from><to>18</to><read>6</read><write>6</write><move>R</move></transition>
+<transition><from>18</from><to>18</to><read>7</read><write>7</write><move>R</move></transition>
+<transition><from>18</from><to>18</to><read>8</read><write>8</write><move>R</move></transition>
+<transition><from>18</from><to>18</to><read>9</read><write>9</write><move>R</move></transition>
+<transition><from>18</from><to>25</to><read></read><write></write><move>L</move></transition>
+
+<!-- ESTADO 23: AVANZAR AL FINAL DESPUÉS DE ENCONTRAR MINÚSCULA -->
+<transition><from>23</from><to>23</to><read>M</read><write>M</write><move>R</move></transition>
+<transition><from>23</from><to>23</to><read>m</read><write>m</write><move>R</move></transition>
+<transition><from>23</from><to>23</to><read>S</read><write>S</write><move>R</move></transition>
+<transition><from>23</from><to>23</to><read>0</read><write>0</write><move>R</move></transition>
+<transition><from>23</from><to>23</to><read>1</read><write>1</write><move>R</move></transition>
+<transition><from>23</from><to>23</to><read>2</read><write>2</write><move>R</move></transition>
+<transition><from>23</from><to>23</to><read>3</read><write>3</write><move>R</move></transition>
+<transition><from>23</from><to>23</to><read>4</read><write>4</write><move>R</move></transition>
+<transition><from>23</from><to>23</to><read>5</read><write>5</write><move>R</move></transition>
+<transition><from>23</from><to>23</to><read>6</read><write>6</write><move>R</move></transition>
+<transition><from>23</from><to>23</to><read>7</read><write>7</write><move>R</move></transition>
+<transition><from>23</from><to>23</to><read>8</read><write>8</write><move>R</move></transition>
+<transition><from>23</from><to>23</to><read>9</read><write>9</write><move>R</move></transition>
+<transition><from>23</from><to>24</to><read></read><write></write><move>L</move></transition>
+
+<!-- ESTADO 24: RETROCEDER AL INICIO -->
+<transition><from>24</from><to>24</to><read>M</read><write>M</write><move>L</move></transition>
+<transition><from>24</from><to>24</to><read>m</read><write>m</write><move>L</move></transition>
+<transition><from>24</from><to>24</to><read>S</read><write>S</write><move>L</move></transition>
+<transition><from>24</from><to>24</to><read>0</read><write>0</write><move>L</move></transition>
+<transition><from>24</from><to>24</to><read>1</read><write>1</write><move>L</move></transition>
+<transition><from>24</from><to>24</to><read>2</read><write>2</write><move>L</move></transition>
+<transition><from>24</from><to>24</to><read>3</read><write>3</write><move>L</move></transition>
+<transition><from>24</from><to>24</to><read>4</read><write>4</write><move>L</move></transition>
+<transition><from>24</from><to>24</to><read>5</read><write>5</write><move>L</move></transition>
+<transition><from>24</from><to>24</to><read>6</read><write>6</write><move>L</move></transition>
+<transition><from>24</from><to>24</to><read>7</read><write>7</write><move>L</move></transition>
+<transition><from>24</from><to>24</to><read>8</read><write>8</write><move>L</move></transition>
+<transition><from>24</from><to>24</to><read>9</read><write>9</write><move>L</move></transition>
+<transition><from>24</from><to>16</to><read></read><write></write><move>R</move></transition>
+
+<!-- ESTADO 25: RETROCEDER AL INICIO -->
+<transition><from>25</from><to>25</to><read>M</read><write>M</write><move>L</move></transition>
+<transition><from>25</from><to>25</to><read>m</read><write>m</write><move>L</move></transition>
+<transition><from>25</from><to>25</to><read>S</read><write>S</write><move>L</move></transition>
+<transition><from>25</from><to>25</to><read>0</read><write>0</write><move>L</move></transition>
+<transition><from>25</from><to>25</to><read>1</read><write>1</write><move>L</move></transition>
+<transition><from>25</from><to>25</to><read>2</read><write>2</write><move>L</move></transition>
+<transition><from>25</from><to>25</to><read>3</read><write>3</write><move>L</move></transition>
+<transition><from>25</from><to>25</to><read>4</read><write>4</write><move>L</move></transition>
+<transition><from>25</from><to>25</to><read>5</read><write>5</write><move>L</move></transition>
+<transition><from>25</from><to>25</to><read>6</read><write>6</write><move>L</move></transition>
+<transition><from>25</from><to>25</to><read>7</read><write>7</write><move>L</move></transition>
+<transition><from>25</from><to>25</to><read>8</read><write>8</write><move>L</move></transition>
+<transition><from>25</from><to>25</to><read>9</read><write>9</write><move>L</move></transition>
+<transition><from>25</from><to>26</to><read></read><write></write><move>R</move></transition>
+
+<!-- ESTADO 26: LIMPIAR (CONVERTIR TODO EN N EXCEPTO DÍGITOS) -->
+<transition><from>26</from><to>26</to><read>0</read><write>0</write><move>R</move></transition>
+<transition><from>26</from><to>26</to><read>1</read><write>1</write><move>R</move></transition>
+<transition><from>26</from><to>26</to><read>2</read><write>2</write><move>R</move></transition>
+<transition><from>26</from><to>26</to><read>3</read><write>3</write><move>R</move></transition>
+<transition><from>26</from><to>26</to><read>4</read><write>4</write><move>R</move></transition>
+<transition><from>26</from><to>26</to><read>5</read><write>5</write><move>R</move></transition>
+<transition><from>26</from><to>26</to><read>6</read><write>6</write><move>R</move></transition>
+<transition><from>26</from><to>26</to><read>7</read><write>7</write><move>R</move></transition>
+<transition><from>26</from><to>26</to><read>8</read><write>8</write><move>R</move></transition>
+<transition><from>26</from><to>26</to><read>9</read><write>9</write><move>R</move></transition>
+<transition><from>26</from><to>26</to><read>M</read><write>N</write><move>R</move></transition>
+<transition><from>26</from><to>26</to><read>m</read><write>N</write><move>R</move></transition>
+<transition><from>26</from><to>26</to><read>D</read><write>N</write><move>R</move></transition>
+<transition><from>26</from><to>26</to><read>S</read><write>N</write><move>R</move></transition>
+<transition><from>26</from><to>26</to><read>X</read><write>N</write><move>R</move></transition>
+<transition><from>26</from><to>27</to><read></read><write></write><move>L</move></transition>
+
+<!-- ESTADO 27: RETROCEDER AL INICIO PARA COMENZAR SUMA -->
+<transition><from>27</from><to>27</to><read>0</read><write>0</write><move>L</move></transition>
+<transition><from>27</from><to>27</to><read>1</read><write>1</write><move>L</move></transition>
+<transition><from>27</from><to>27</to><read>2</read><write>2</write><move>L</move></transition>
+<transition><from>27</from><to>27</to><read>3</read><write>3</write><move>L</move></transition>
+<transition><from>27</from><to>27</to><read>4</read><write>4</write><move>L</move></transition>
+<transition><from>27</from><to>27</to><read>5</read><write>5</write><move>L</move></transition>
+<transition><from>27</from><to>27</to><read>6</read><write>6</write><move>L</move></transition>
+<transition><from>27</from><to>27</to><read>7</read><write>7</write><move>L</move></transition>
+<transition><from>27</from><to>27</to><read>8</read><write>8</write><move>L</move></transition>
+<transition><from>27</from><to>27</to><read>9</read><write>9</write><move>L</move></transition>
+<transition><from>27</from><to>27</to><read>N</read><write>N</write><move>L</move></transition>
+<transition><from>27</from><to>30</to><read></read><write></write><move>R</move></transition>
+
+<!-- ESTADO 28: AVANZAR AL FINAL DESPUÉS DEL SEGUNDO DÍGITO -->
+<transition><from>28</from><to>28</to><read>M</read><write>M</write><move>R</move></transition>
+<transition><from>28</from><to>28</to><read>m</read><write>m</write><move>R</move></transition>
+<transition><from>28</from><to>28</to><read>S</read><write>S</write><move>R</move></transition>
+<transition><from>28</from><to>28</to><read>0</read><write>0</write><move>R</move></transition>
+<transition><from>28</from><to>28</to><read>1</read><write>1</write><move>R</move></transition>
+<transition><from>28</from><to>28</to><read>2</read><write>2</write><move>R</move></transition>
+<transition><from>28</from><to>28</to><read>3</read><write>3</write><move>R</move></transition>
+<transition><from>28</from><to>28</to><read>4</read><write>4</write><move>R</move></transition>
+<transition><from>28</from><to>28</to><read>5</read><write>5</write><move>R</move></transition>
+<transition><from>28</from><to>28</to><read>6</read><write>6</write><move>R</move></transition>
+<transition><from>28</from><to>28</to><read>7</read><write>7</write><move>R</move></transition>
+<transition><from>28</from><to>28</to><read>8</read><write>8</write><move>R</move></transition>
+<transition><from>28</from><to>28</to><read>9</read><write>9</write><move>R</move></transition>
+<transition><from>28</from><to>29</to><read></read><write></write><move>L</move></transition>
+
+<!-- ESTADO 29: RETROCEDER AL INICIO -->
+<transition><from>29</from><to>29</to><read>M</read><write>M</write><move>L</move></transition>
+<transition><from>29</from><to>29</to><read>m</read><write>m</write><move>L</move></transition>
+<transition><from>29</from><to>29</to><read>S</read><write>S</write><move>L</move></transition>
+<transition><from>29</from><to>29</to><read>0</read><write>0</write><move>L</move></transition>
+<transition><from>29</from><to>29</to><read>1</read><write>1</write><move>L</move></transition>
+<transition><from>29</from><to>29</to><read>2</read><write>2</write><move>L</move></transition>
+<transition><from>29</from><to>29</to><read>3</read><write>3</write><move>L</move></transition>
+<transition><from>29</from><to>29</to><read>4</read><write>4</write><move>L</move></transition>
+<transition><from>29</from><to>29</to><read>5</read><write>5</write><move>L</move></transition>
+<transition><from>29</from><to>29</to><read>6</read><write>6</write><move>L</move></transition>
+<transition><from>29</from><to>29</to><read>7</read><write>7</write><move>L</move></transition>
+<transition><from>29</from><to>29</to><read>8</read><write>8</write><move>L</move></transition>
+<transition><from>29</from><to>29</to><read>9</read><write>9</write><move>L</move></transition>
+<transition><from>29</from><to>19</to><read></read><write></write><move>R</move></transition>
+<!-- ESTADOS 30-38: CALCULAR SUMA MOD 9 -->
+
+<!-- Estado 30: mod 0 -->
+<transition><from>30</from><to>30</to><read>0</read><write>0</write><move>R</move></transition>
+<transition><from>30</from><to>31</to><read>1</read><write>1</write><move>R</move></transition>
+<transition><from>30</from><to>32</to><read>2</read><write>2</write><move>R</move></transition>
+<transition><from>30</from><to>33</to><read>3</read><write>3</write><move>R</move></transition>
+<transition><from>30</from><to>34</to><read>4</read><write>4</write><move>R</move></transition>
+<transition><from>30</from><to>35</to><read>5</read><write>5</write><move>R</move></transition>
+<transition><from>30</from><to>36</to><read>6</read><write>6</write><move>R</move></transition>
+<transition><from>30</from><to>37</to><read>7</read><write>7</write><move>R</move></transition>
+<transition><from>30</from><to>38</to><read>8</read><write>8</write><move>R</move></transition>
+<transition><from>30</from><to>30</to><read>9</read><write>9</write><move>R</move></transition>
+<transition><from>30</from><to>30</to><read>N</read><write>N</write><move>R</move></transition>
+
+<!-- Estado 31: mod 1 -->
+<transition><from>31</from><to>31</to><read>0</read><write>0</write><move>R</move></transition>
+<transition><from>31</from><to>32</to><read>1</read><write>1</write><move>R</move></transition>
+<transition><from>31</from><to>33</to><read>2</read><write>2</write><move>R</move></transition>
+<transition><from>31</from><to>34</to><read>3</read><write>3</write><move>R</move></transition>
+<transition><from>31</from><to>35</to><read>4</read><write>4</write><move>R</move></transition>
+<transition><from>31</from><to>36</to><read>5</read><write>5</write><move>R</move></transition>
+<transition><from>31</from><to>37</to><read>6</read><write>6</write><move>R</move></transition>
+<transition><from>31</from><to>38</to><read>7</read><write>7</write><move>R</move></transition>
+<transition><from>31</from><to>30</to><read>8</read><write>8</write><move>R</move></transition>
+<transition><from>31</from><to>31</to><read>9</read><write>9</write><move>R</move></transition>
+<transition><from>31</from><to>31</to><read>N</read><write>N</write><move>R</move></transition>
+
+<!-- Estado 32: mod 2 -->
+<transition><from>32</from><to>32</to><read>0</read><write>0</write><move>R</move></transition>
+<transition><from>32</from><to>33</to><read>1</read><write>1</write><move>R</move></transition>
+<transition><from>32</from><to>34</to><read>2</read><write>2</write><move>R</move></transition>
+<transition><from>32</from><to>35</to><read>3</read><write>3</write><move>R</move></transition>
+<transition><from>32</from><to>36</to><read>4</read><write>4</write><move>R</move></transition>
+<transition><from>32</from><to>37</to><read>5</read><write>5</write><move>R</move></transition>
+<transition><from>32</from><to>38</to><read>6</read><write>6</write><move>R</move></transition>
+<transition><from>32</from><to>30</to><read>7</read><write>7</write><move>R</move></transition>
+<transition><from>32</from><to>31</to><read>8</read><write>8</write><move>R</move></transition>
+<transition><from>32</from><to>32</to><read>9</read><write>9</write><move>R</move></transition>
+<transition><from>32</from><to>32</to><read>N</read><write>N</write><move>R</move></transition>
+
+<!-- Estado 33: mod 3 -->
+<transition><from>33</from><to>33</to><read>0</read><write>0</write><move>R</move></transition>
+<transition><from>33</from><to>34</to><read>1</read><write>1</write><move>R</move></transition>
+<transition><from>33</from><to>35</to><read>2</read><write>2</write><move>R</move></transition>
+<transition><from>33</from><to>36</to><read>3</read><write>3</write><move>R</move></transition>
+<transition><from>33</from><to>37</to><read>4</read><write>4</write><move>R</move></transition>
+<transition><from>33</from><to>38</to><read>5</read><write>5</write><move>R</move></transition>
+<transition><from>33</from><to>30</to><read>6</read><write>6</write><move>R</move></transition>
+<transition><from>33</from><to>31</to><read>7</read><write>7</write><move>R</move></transition>
+<transition><from>33</from><to>32</to><read>8</read><write>8</write><move>R</move></transition>
+<transition><from>33</from><to>33</to><read>9</read><write>9</write><move>R</move></transition>
+<transition><from>33</from><to>33</to><read>N</read><write>N</write><move>R</move></transition>
+
+<!-- Estado 34: mod 4 -->
+<transition><from>34</from><to>34</to><read>0</read><write>0</write><move>R</move></transition>
+<transition><from>34</from><to>35</to><read>1</read><write>1</write><move>R</move></transition>
+<transition><from>34</from><to>36</to><read>2</read><write>2</write><move>R</move></transition>
+<transition><from>34</from><to>37</to><read>3</read><write>3</write><move>R</move></transition>
+<transition><from>34</from><to>38</to><read>4</read><write>4</write><move>R</move></transition>
+<transition><from>34</from><to>30</to><read>5</read><write>5</write><move>R</move></transition>
+<transition><from>34</from><to>31</to><read>6</read><write>6</write><move>R</move></transition>
+<transition><from>34</from><to>32</to><read>7</read><write>7</write><move>R</move></transition>
+<transition><from>34</from><to>33</to><read>8</read><write>8</write><move>R</move></transition>
+<transition><from>34</from><to>34</to><read>9</read><write>9</write><move>R</move></transition>
+<transition><from>34</from><to>34</to><read>N</read><write>N</write><move>R</move></transition>
+
+<!-- Estado 35: mod 5 -->
+<transition><from>35</from><to>35</to><read>0</read><write>0</write><move>R</move></transition>
+<transition><from>35</from><to>36</to><read>1</read><write>1</write><move>R</move></transition>
+<transition><from>35</from><to>37</to><read>2</read><write>2</write><move>R</move></transition>
+<transition><from>35</from><to>38</to><read>3</read><write>3</write><move>R</move></transition>
+<transition><from>35</from><to>30</to><read>4</read><write>4</write><move>R</move></transition>
+<transition><from>35</from><to>31</to><read>5</read><write>5</write><move>R</move></transition>
+<transition><from>35</from><to>32</to><read>6</read><write>6</write><move>R</move></transition>
+<transition><from>35</from><to>33</to><read>7</read><write>7</write><move>R</move></transition>
+<transition><from>35</from><to>34</to><read>8</read><write>8</write><move>R</move></transition>
+<transition><from>35</from><to>35</to><read>9</read><write>9</write><move>R</move></transition>
+<transition><from>35</from><to>35</to><read>N</read><write>N</write><move>R</move></transition>
+
+<!-- Estado 36: mod 6 -->
+<transition><from>36</from><to>36</to><read>0</read><write>0</write><move>R</move></transition>
+<transition><from>36</from><to>37</to><read>1</read><write>1</write><move>R</move></transition>
+<transition><from>36</from><to>38</to><read>2</read><write>2</write><move>R</move></transition>
+<transition><from>36</from><to>30</to><read>3</read><write>3</write><move>R</move></transition>
+<transition><from>36</from><to>31</to><read>4</read><write>4</write><move>R</move></transition>
+<transition><from>36</from><to>32</to><read>5</read><write>5</write><move>R</move></transition>
+<transition><from>36</from><to>33</to><read>6</read><write>6</write><move>R</move></transition>
+<transition><from>36</from><to>34</to><read>7</read><write>7</write><move>R</move></transition>
+<transition><from>36</from><to>35</to><read>8</read><write>8</write><move>R</move></transition>
+<transition><from>36</from><to>36</to><read>9</read><write>9</write><move>R</move></transition>
+<transition><from>36</from><to>36</to><read>N</read><write>N</write><move>R</move></transition>
+
+<!-- Estado 37: mod 7 -->
+<transition><from>37</from><to>37</to><read>0</read><write>0</write><move>R</move></transition>
+<transition><from>37</from><to>38</to><read>1</read><write>1</write><move>R</move></transition>
+<transition><from>37</from><to>30</to><read>2</read><write>2</write><move>R</move></transition>
+<transition><from>37</from><to>31</to><read>3</read><write>3</write><move>R</move></transition>
+<transition><from>37</from><to>32</to><read>4</read><write>4</write><move>R</move></transition>
+<transition><from>37</from><to>33</to><read>5</read><write>5</write><move>R</move></transition>
+<transition><from>37</from><to>34</to><read>6</read><write>6</write><move>R</move></transition>
+<transition><from>37</from><to>35</to><read>7</read><write>7</write><move>R</move></transition>
+<transition><from>37</from><to>36</to><read>8</read><write>8</write><move>R</move></transition>
+<transition><from>37</from><to>37</to><read>9</read><write>9</write><move>R</move></transition>
+<transition><from>37</from><to>37</to><read>N</read><write>N</write><move>R</move></transition>
+
+<!-- Estado 38: mod 8 -->
+<transition><from>38</from><to>38</to><read>0</read><write>0</write><move>R</move></transition>
+<transition><from>38</from><to>30</to><read>1</read><write>1</write><move>R</move></transition>
+<transition><from>38</from><to>31</to><read>2</read><write>2</write><move>R</move></transition>
+<transition><from>38</from><to>32</to><read>3</read><write>3</write><move>R</move></transition>
+<transition><from>38</from><to>33</to><read>4</read><write>4</write><move>R</move></transition>
+<transition><from>38</from><to>34</to><read>5</read><write>5</write><move>R</move></transition>
+<transition><from>38</from><to>35</to><read>6</read><write>6</write><move>R</move></transition>
+<transition><from>38</from><to>36</to><read>7</read><write>7</write><move>R</move></transition>
+<transition><from>38</from><to>37</to><read>8</read><write>8</write><move>R</move></transition>
+<transition><from>38</from><to>38</to><read>9</read><write>9</write><move>R</move></transition>
+<transition><from>38</from><to>38</to><read>N</read><write>N</write><move>R</move></transition>
+
+<!-- ACEPTAR SOLO SI MOD 0 -->
+<transition><from>30</from><to>20</to><read></read><write></write><move>R</move></transition>
 </automaton>
 </structure>
