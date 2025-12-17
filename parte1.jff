@@ -52,7 +52,35 @@
 <x>600.0</x>
 <y>350.0</y>
 </state>
-
+<state id="12" name="q_upper">
+<x>1200.0</x>
+<y>200.0</y>
+</state>
+<state id="13" name="q_lower">
+<x>1300.0</x>
+<y>200.0</y>
+</state>
+<state id="14" name="q_digit1">
+<x>1400.0</x>
+<y>200.0</y>
+</state>
+<state id="15" name="q_digit2">
+<x>1500.0</x>
+<y>200.0</y>
+</state>
+<state id="16" name="q_special">
+<x>1600.0</x>
+<y>200.0</y>
+</state>
+<state id="17" name="q_back2">
+<x>1700.0</x>
+<y>200.0</y>
+</state>
+<state id="18" name="q_phase2_ok">
+<x>1800.0</x>
+<y>200.0</y>
+<final/>
+</state>
 <transition>
 <from>0</from>
 <to>1</to>

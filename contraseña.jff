@@ -5686,18 +5686,18 @@
 
 <!-- ESTADO 17: VERIFICAR SEGUNDO DÍGITO -->
 <transition><from>17</from><to>28</to><read>0</read><write>0</write><move>R</move></transition>
-<transition><from>17</from><to>19</to><read>1</read><write>1</write><move>R</move></transition>
-<transition><from>17</from><to>19</to><read>2</read><write>2</write><move>R</move></transition>
-<transition><from>17</from><to>19</to><read>3</read><write>3</write><move>R</move></transition>
-<transition><from>17</from><to>19</to><read>4</read><write>4</write><move>R</move></transition>
-<transition><from>17</from><to>19</to><read>5</read><write>5</write><move>R</move></transition>
-<transition><from>17</from><to>19</to><read>6</read><write>6</write><move>R</move></transition>
-<transition><from>17</from><to>19</to><read>7</read><write>7</write><move>R</move></transition>
-<transition><from>17</from><to>19</to><read>8</read><write>8</write><move>R</move></transition>
-<transition><from>17</from><to>19</to><read>9</read><write>9</write><move>R</move></transition>
-<transition><from>17</from><to>17</to><read>M</read><write>M</write><move>R</move></transition>
-<transition><from>17</from><to>17</to><read>m</read><write>m</write><move>R</move></transition>
-<transition><from>17</from><to>17</to><read>S</read><write>S</write><move>R</move></transition>
+<transition><from>17</from><to>28</to><read>1</read><write>1</write><move>R</move></transition>
+<transition><from>17</from><to>28</to><read>2</read><write>2</write><move>R</move></transition>
+<transition><from>17</from><to>28</to><read>3</read><write>3</write><move>R</move></transition>
+<transition><from>17</from><to>28</to><read>4</read><write>4</write><move>R</move></transition>
+<transition><from>17</from><to>28</to><read>5</read><write>5</write><move>R</move></transition>
+<transition><from>17</from><to>28</to><read>6</read><write>6</write><move>R</move></transition>
+<transition><from>17</from><to>28</to><read>7</read><write>7</write><move>R</move></transition>
+<transition><from>17</from><to>28</to><read>8</read><write>8</write><move>R</move></transition>
+<transition><from>17</from><to>28</to><read>9</read><write>9</write><move>R</move></transition>
+<transition><from>17</from><to>28</to><read>M</read><write>M</write><move>R</move></transition>
+<transition><from>17</from><to>28</to><read>m</read><write>m</write><move>R</move></transition>
+<transition><from>17</from><to>28</to><read>S</read><write>S</write><move>R</move></transition>
 
 <!-- ESTADO 19: VERIFICAR SÍMBOLO -->
 <transition><from>19</from><to>18</to><read>S</read><write>S</write><move>R</move></transition>
